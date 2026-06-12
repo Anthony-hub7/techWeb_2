@@ -1,1 +1,49 @@
-# GraphQL schema
+type Query {
+  soldeActuel(compteId: ID!): SoldeResult
+  historiqueTransactions(compteId: ID!): [Transaction!]!
+  mesComptes: [Compte!]!
+}
+
+type Mutation {
+  creerCompte: Compte!
+  crediterCompte(compteId: ID!, montant: Float!): EventResult!
+  debiterCompte(compteId: ID!, montant: Float!): EventResult!
+}
+
+type Subscription {
+  transactionEffectuee(compteId: ID!): EventResult!
+}
+
+type Compte {
+  id: ID!
+  numero: String!
+  statut: String!
+  created_at: String!
+}
+
+type SoldeResult {
+  compte_id: ID!
+  solde: Float!
+  devise: String!
+  nb_transactions: Int!
+  derniere_op: String
+}
+
+type Transaction {
+  id: ID!
+  type: String!
+  montant: Float!
+  devise: String!
+  version: Int!
+  created_at: String!
+}
+
+type EventResult {
+  aggregate_id: ID!
+  version: Int!
+  type: String!
+  payload: JSON!
+  created_at: String!
+}
+
+scalar JSON
