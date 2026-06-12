@@ -1,0 +1,1 @@
+// Résolveurs GraphQL de requêtes
